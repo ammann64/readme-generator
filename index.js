@@ -1,6 +1,18 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
-// TODO: Create an array of questions for user input
+const licenses = [{name: 'Academic Free License v3.0', value: 'afl'},
+{name: 'Apache License 2.0', value: 'apache'},
+{name: 'Artistic License 2.0', value: 'artistic'},
+{name: 'Boost Software License 1.0', value: 'bsl'},
+{name: 'Creative Commons Attribution 4.0', value: 'cc-by'},
+{name: 'Educational Community License v2.0', value: 'ecl'},
+{name: 'Eclipse Public License 2.0', value: 'epl'},
+{name: 'GNU General Public License 3.0', value: 'gpl'},
+{name: 'Microsoft Public License', value: 'ms-pl'},
+{name: 'MIT', value: 'mit'},
+{name: 'Mozilla Public License', value: 'mpl'},
+{name: 'Open Software License', value: 'osl'},
+{name: 'The Unlicense', value: 'unlicense'}]
 const questions = [
     {
         type: 'input',
@@ -36,21 +48,7 @@ const questions = [
         type: 'list',
         message: 'Please choose a license:',
         name: 'license',
-        choices: [
-            {name: 'Academic Free License v3.0', value: 'afl'},
-            {name: 'Apache License 2.0', value: 'apache'},
-            {name: 'Artistic License 2.0', value: 'artistic'},
-            {name: 'Boost Software License 1.0', value: 'bsl'},
-            {name: 'Creative Commons Attribution 4.0', value: 'cc-by'},
-            {name: 'Educational Community License v2.0', value: 'ecl'},
-            {name: 'Eclipse Public License 2.0', value: 'epl'},
-            {name: 'GNU General Public License 3.0', value: 'gpl'},
-            {name: 'Microsoft Public License', value: 'ms-pl'},
-            {name: 'MIT', value: 'mit'},
-            {name: 'Mozilla Public License', value: 'mpl'},
-            {name: 'Open Software License', value: 'osl'},
-            {name: 'The Unlicense', value: 'unlicense'}
-        ]
+        choices: licenses
     },
     {
         type: 'input',
@@ -67,8 +65,18 @@ const questions = [
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {}
 
-// TODO: Create a function to initialize app
-function init() {}
+function init() {
+    console.log('Welcome to the readme generator! Please answer the following questions to generate your project readme.');
+    inquirer
+        .prompt(questions)
+        
+        .then((response) =>
+        {
+            console.log(response);
+            writeToFile('README.md', response);
+        }
+        );
+}
 
 // Function call to initialize app
 init();

@@ -1,18 +1,17 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
-const licenses = [{name: 'Academic Free License v3.0', value: 'afl'},
-{name: 'Apache License 2.0', value: 'apache'},
+const generateMarkdown = require('./utils/generateMarkdown');
+//List of available licenses in an array.
+const licenses = [{name: 'Apache License 2.0', value: 'apache'},
 {name: 'Artistic License 2.0', value: 'artistic'},
 {name: 'Boost Software License 1.0', value: 'bsl'},
 {name: 'Creative Commons Attribution 4.0', value: 'cc-by'},
-{name: 'Educational Community License v2.0', value: 'ecl'},
 {name: 'Eclipse Public License 2.0', value: 'epl'},
 {name: 'GNU General Public License 3.0', value: 'gpl'},
 {name: 'Microsoft Public License', value: 'ms-pl'},
 {name: 'MIT', value: 'mit'},
-{name: 'Mozilla Public License', value: 'mpl'},
-{name: 'Open Software License', value: 'osl'},
-{name: 'The Unlicense', value: 'unlicense'}]
+{name: 'Open Software License', value: 'osl'}]
+//Question objects to receive user input via inquirer
 const questions = [
     {
         type: 'input',
@@ -62,18 +61,20 @@ const questions = [
     }
 ];
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+// Function to write README file
+function writeToFile(fileName, data) {
+   content = generateMarkdown.generateMarkdown(data);
+    fs.writeFile(fileName, content);
+}
 
 function init() {
-    console.log('Welcome to the readme generator! Please answer the following questions to generate your project readme.');
+    console.log('Welcome to the readme generator! Please answer the following questions to generate your project readme.'); //Intro message
     inquirer
-        .prompt(questions)
+        .prompt(questions) //Prompts the user for input with the questions objects defined earlier
         
         .then((response) =>
         {
-            console.log(response);
-            writeToFile('README.md', response);
+            writeToFile('README.md', response); //Calls the write to file function to write the readme
         }
         );
 }

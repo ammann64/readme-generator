@@ -59,7 +59,7 @@ function renderLicenseSection(license) {
   }
   return section;
 }
-
+//Generates the table of contents
 function renderTableOfContents() {
   tableOfContents = 
   `-[Description](#description)\n
